@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C5DAEB99-86C4-45A5-93B4-D848666BF80A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UserConsoleLib</RootNamespace>
+    <AssemblyName>UserConsoleLib</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Debug\UserConsoleLib.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Command.cs" />
+    <Compile Include="CommandException.cs" />
+    <Compile Include="ConsoleInterface.cs" />
+    <Compile Include="ConsoleOutputRouter.cs" />
+    <Compile Include="ErrorCode.cs" />
+    <Compile Include="ExtendedLib\DateTime\Date.cs" />
+    <Compile Include="ExtendedLib\DateTime\Time.cs" />
+    <Compile Include="ExtendedLib\IO\Dir.cs" />
+    <Compile Include="ExtendedLib\IO\Directory.cs" />
+    <Compile Include="ExtendedLib\IO\File.cs" />
+    <Compile Include="ScriptTargetWrapper.cs" />
+    <Compile Include="ConConverter.cs" />
+    <Compile Include="FileInterface.cs" />
+    <Compile Include="IConsoleOutput.cs" />
+    <Compile Include="Params.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScriptHost.cs" />
+    <Compile Include="StandardLib\Bracket.cs" />
+    <Compile Include="StandardLib\Breaking\Continue.cs" />
+    <Compile Include="StandardLib\Breaking\Return.cs" />
+    <Compile Include="StandardLib\Clear.cs" />
+    <Compile Include="StandardLib\Control\Boolean.cs" />
+    <Compile Include="ExtendedLib\IO\Cd.cs" />
+    <Compile Include="StandardLib\Breaking\Break.cs" />
+    <Compile Include="StandardLib\Control\DebugBreak.cs" />
+    <Compile Include="StandardLib\Control\EndBlock.cs" />
+    <Compile Include="StandardLib\Breaking\Endscript.cs" />
+    <Compile Include="StandardLib\Control\For.cs" />
+    <Compile Include="StandardLib\Control\Label.cs" />
+    <Compile Include="StandardLib\Control\Not.cs" />
+    <Compile Include="StandardLib\Control\Or.cs" />
+    <Compile Include="StandardLib\Control\And.cs" />
+    <Compile Include="StandardLib\Control\If.cs" />
+    <Compile Include="StandardLib\Control\Load.cs" />
+    <Compile Include="StandardLib\Control\Skip.cs" />
+    <Compile Include="StandardLib\Control\Teterary.cs" />
+    <Compile Include="StandardLib\Control\While.cs" />
+    <Compile Include="StandardLib\Echo.cs" />
+    <Compile Include="StandardLib\Exit.cs" />
+    <Compile Include="StandardLib\Help.cs" />
+    <Compile Include="StandardLib\Math\Abs.cs" />
+    <Compile Include="StandardLib\Math\Sqrt.cs" />
+    <Compile Include="StandardLib\Math\Cos.cs" />
+    <Compile Include="StandardLib\Math\E.cs" />
+    <Compile Include="StandardLib\Math\Ceiling.cs" />
+    <Compile Include="StandardLib\Math\Min.cs" />
+    <Compile Include="StandardLib\Math\Max.cs" />
+    <Compile Include="StandardLib\Math\Operation.cs" />
+    <Compile Include="StandardLib\Math\Pi.cs" />
+    <Compile Include="StandardLib\Math\Floor.cs" />
+    <Compile Include="StandardLib\Math\Round.cs" />
+    <Compile Include="StandardLib\Math\Sign.cs" />
+    <Compile Include="StandardLib\Math\Sin.cs" />
+    <Compile Include="StandardLib\Math\Average.cs" />
+    <Compile Include="StandardLib\Math\Sum.cs" />
+    <Compile Include="StandardLib\Math\Tan.cs" />
+    <Compile Include="StandardLib\Randomness\Choose.cs" />
+    <Compile Include="StandardLib\Randomness\Random.cs" />
+    <Compile Include="StandardLib\Structure\Call.cs" />
+    <Compile Include="StandardLib\Structure\Function.cs" />
+    <Compile Include="StandardLib\Variables\Get.cs" />
+    <Compile Include="StandardLib\Variables\List.cs" />
+    <Compile Include="StandardLib\Variables\Range.cs" />
+    <Compile Include="StandardLib\Variables\Set.cs" />
+    <Compile Include="StandardLib\Variables\String.cs" />
+    <Compile Include="StringInterface.cs" />
+    <Compile Include="Syntax.cs" />
+    <Compile Include="UserConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserConsole.Designer.cs">
+      <DependentUpon>UserConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Variables.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UserConsole.resx">
+      <DependentUpon>UserConsole.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="StandardLib\TextFile1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ExtendedLib\Forms\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
