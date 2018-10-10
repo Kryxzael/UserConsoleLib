@@ -87,9 +87,11 @@ namespace UserConsoleLib
         /// <summary>
         /// Houses all registered commands
         /// </summary>
-        internal static List<Command> AllCommandsInternal { get; } = new List<Command>()
-        {
-            new StandardLib.Echo(),
+        internal static List<Command> AllCommandsInternal { get; } = new List<Command>();
+		
+		private static Command[] _systemCommands = new Command[]
+		{
+			new StandardLib.Echo(),
             new StandardLib.Clear(),
             new StandardLib.Help(),
             new StandardLib.Exit(),
@@ -140,7 +142,16 @@ namespace UserConsoleLib
             new StandardLib.Brackets.Brac(),
             new ExtendedLib.DateTime.Time(),
             new ExtendedLib.DateTime.Date(),
-        };
+		};
+		
+		static Command()
+		{
+            //Registers all system commands
+			foreach (Command i in _systemCommands)
+            {
+                Register(i);
+            }
+		}
 
         /// <summary>
         /// Gets all commands registered
@@ -176,7 +187,7 @@ namespace UserConsoleLib
         /// Disables usage of a command without deregistering it
         /// </summary>
         /// <param name="command">Command to disable</param>
-        public void DisableCommand(Command command)
+        public static void DisableCommand(Command command)
         {
             command.IsEnabled = false;
         }
@@ -185,10 +196,37 @@ namespace UserConsoleLib
         /// Enables a command previously disabled by DisableCommand()
         /// </summary>
         /// <param name="command">Command to enable</param>
-        public void EnableCommand(Command command)
+        public static void EnableCommand(Command command)
         {
 			command.IsEnabled = true;
         }
+		
+		/// <summary>
+        /// Disables all built-in commands
+        /// </summary>
+		public static void DisableSystemCommands(bool disableHelp)
+		{
+			foreach (Command i in _systemCommands) 
+			{
+				if (!disableHelp && i.GetType() == typeof(StandardLib.Help))
+				{
+					continue;
+				}
+				
+				DisableCommand(i);
+			}
+		}
+		
+		/// <summary>
+        /// Enables all built-in commands
+        /// </summary>
+		public static void EnableSystemCommands()
+		{
+			foreach (Command i in _systemCommands) 
+			{
+				EnableCommand(i);
+			}
+		}
 
         /// <summary>
         /// Finds and returns a command by name
