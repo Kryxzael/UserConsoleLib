@@ -29,6 +29,11 @@ namespace UserConsoleLib
         /// <param name="target">Writable console output</param>
         protected abstract void Executed(Params args, IConsoleOutput target);
 
+		/// <summary>
+        /// Can you run this command from the console?
+        /// </summary>
+		public bool IsEnabled { get; private set; }
+		
         /// <summary>
         /// Gets the syntax of the command
         /// </summary>
@@ -154,12 +159,30 @@ namespace UserConsoleLib
         /// <param name="command">Command to register</param>
         public static void Register(Command command)
         {
-            if (AllCommandsInternal.Any(i => i.Name.ToLower() == command.Name.ToLower()))
-            {
-                throw new ArgumentException("A command with this name has allready been registered");
-            }
-
             AllCommandsInternal.Add(command);
+            command.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// Disables usage of a command without deregistering it
+        /// </summary>
+        /// <param name="command">Command to disable</param>
+        public void DisableCommand(Command command)
+        {
+            command.IsEnabled = false;
+        }
+
+        /// <summary>
+        /// Enables a command previously disabled by DisableCommand()
+        /// </summary>
+        /// <param name="command">Command to enable</param>
+        public void EnableCommand(Command command)
+        {
+            if (!AllCommandsInternal.Contains(command))
+            {
+                throw new InvalidOperationException("Command is not registered. Registering the command will automaticly enable it");
+            }
+			command.IsEnabled = true;
         }
 
         /// <summary>
@@ -170,9 +193,35 @@ namespace UserConsoleLib
         public static Command GetByName(string name)
         {
             name = name.Trim();
-
-            return AllCommandsInternal.Where(i => i.Name.ToLower() == name.ToLower()).SingleOrDefault();
+            return AllCommandsInternal.Where(i => i.Name.ToUpper() == name.ToUpper() && i.IsEnabled).LastOrDefault();
         }
+		
+		/// <summary>
+        /// Finds and returns a command by its typecode
+        /// </summary>
+        /// <typeparam name="C">Type of command to find</typeparam>
+        /// <returns></returns>
+		public static Command GetByType<C>() where C : Command 
+		{
+			return AllCommandsInternal.Where(i => i.GetType() == typeof(C)).LastOrDefault();
+		}
+		
+		/// <summary>
+        /// Finds and returns a command by name
+        /// </summary>
+        /// <param name="name">Name of command</param>
+		/// <param name="includeDisabled">Will the search include commands that have been disabled?</param>
+        /// <returns></returns>
+		public static Command GetByName(string name, bool includeDisabled)
+		{
+			if (!includeDisabled)
+			{
+				return GetByName(name);
+			}
+			
+			name = name.Trim();
+            return AllCommandsInternal.Where(i => i.Name.ToUpper() == name.ToUpper()).LastOrDefault();
+		}
 
         /// <summary>
         /// Parses and invokes a command line entry
