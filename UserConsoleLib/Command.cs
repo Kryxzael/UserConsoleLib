@@ -29,10 +29,10 @@ namespace UserConsoleLib
         /// <param name="target">Writable console output</param>
         protected abstract void Executed(Params args, IConsoleOutput target);
 
-		/// <summary>
+        /// <summary>
         /// Can you run this command from the console?
         /// </summary>
-		public bool IsEnabled { get; private set; }
+        public bool IsEnabled { get; private set; } = true;
 		
         /// <summary>
         /// Gets the syntax of the command
@@ -162,6 +162,15 @@ namespace UserConsoleLib
             AllCommandsInternal.Add(command);
             command.IsEnabled = true;
         }
+		
+		/// <summary>
+        /// Registers a command in this command collection
+        /// </summary>
+        /// <typeparam name="C">Type of command to instantiate and register</typeparam>
+		public static void Register<C>() where C : Command, new()
+		{
+			Register(new C());
+		}
 
         /// <summary>
         /// Disables usage of a command without deregistering it
@@ -178,10 +187,6 @@ namespace UserConsoleLib
         /// <param name="command">Command to enable</param>
         public void EnableCommand(Command command)
         {
-            if (!AllCommandsInternal.Contains(command))
-            {
-                throw new InvalidOperationException("Command is not registered. Registering the command will automaticly enable it");
-            }
 			command.IsEnabled = true;
         }
 
