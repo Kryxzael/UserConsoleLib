@@ -313,7 +313,7 @@ namespace UserConsoleLib
                 //If the 'command name' was a valid number, it must be an arithmeric operation
                 if (double.TryParse(_[0], out double i))
                 {
-                    cmd = GetByName("op");
+                    cmd = GetByType<StandardLib.Math.Operation>();
                     _.Insert(0, "op");
                 }
                 //If the 'command name' was the name of a variable, it must be a set or get operation
@@ -322,13 +322,13 @@ namespace UserConsoleLib
                     //If there are no arguments to the command, it must be a get operation
                     if (_.Count == 1)
                     {
-                        cmd = GetByName("get");
+                        cmd = GetByType<StandardLib.Variables.Get>();
                         _ = new List<string>() { "get", _[0].TrimStart('$') };
                     }
                     //If there are arguments to the command, it must be a set operation
                     else
                     {
-                        cmd = GetByName("set");
+                        cmd = GetByType<StandardLib.Variables.Set>();
 
                         IEnumerable<string> _2 = _.AsEnumerable();
                         _ = new List<string>() { "get", _[0].TrimStart('$') };
