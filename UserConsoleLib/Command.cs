@@ -203,8 +203,9 @@ namespace UserConsoleLib
 		
 		/// <summary>
         /// Disables all built-in commands
+        /// <param name="disableHelp">Will the help command also be disabled?</param>
         /// </summary>
-		public static void DisableSystemCommands(bool disableHelp)
+		public static void DisableSystemCommands(bool disableHelp = true)
 		{
 			foreach (Command i in _systemCommands) 
 			{

@@ -33,6 +33,8 @@ namespace UserConsoleLib.StandardLib
 
         protected override void Executed(Params args, IConsoleOutput target)
         {
+            Command[] enabledCommands = AllCommandsInternal.Where(i => i.IsEnabled).ToArray();
+
             if (args.Count == 0)
             {
                 Executed(new Params(new string[] { 1.ToString() }), target);
@@ -43,9 +45,9 @@ namespace UserConsoleLib.StandardLib
             {
                 target.WriteLine("Listing commands at page " + args.ToInt(0) + " of " + GetPageCount());
 
-                for (int i = (args.ToInt(0) - 1) * 5; i < (args.ToInt(0) - 1) * 5 + 5 && i < AllCommandsInternal.Count; i++)
+                for (int i = (args.ToInt(0) - 1) * 5; i < (args.ToInt(0) - 1) * 5 + 5 && i < enabledCommands.Length; i++)
                 {
-                    target.WriteLine("* " + AllCommandsInternal[i].Name + ": " + AllCommandsInternal[i].HelpDescription);
+                    target.WriteLine("* " + enabledCommands[i].Name + ": " + enabledCommands[i].HelpDescription);
                 }
             }
             else
@@ -68,7 +70,7 @@ namespace UserConsoleLib.StandardLib
 
         static int GetPageCount()
         {
-            return AllCommandsInternal.Count / 5 + (AllCommandsInternal.Count % 5 == 0 ? 0 : 1);
+            return AllCommandsInternal.Count(i => i.IsEnabled) / 5 + (AllCommandsInternal.Count(i => i.IsEnabled) % 5 == 0 ? 0 : 1);
         }
     }
 }
