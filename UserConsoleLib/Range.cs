@@ -107,6 +107,16 @@ namespace UserConsoleLib
         }
 
         /// <summary>
+        /// Clamps the value so that it is within the range
+        /// </summary>
+        /// <param name="value">Value to clamp</param>
+        /// <returns></returns>
+        public double Clamp(double value)
+        {
+            return Math.Min(Math.Max(value, Minimum), Maximum);
+        }
+
+        /// <summary>
         /// Checks if two ranges houses the same exact values
         /// </summary>
         /// <param name="left">Left operand</param>
