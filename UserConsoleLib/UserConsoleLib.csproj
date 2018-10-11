@@ -53,6 +53,7 @@
     <Compile Include="ExtendedLib\IO\Dir.cs" />
     <Compile Include="ExtendedLib\IO\Directory.cs" />
     <Compile Include="ExtendedLib\IO\File.cs" />
+    <Compile Include="Range.cs" />
     <Compile Include="ScriptTargetWrapper.cs" />
     <Compile Include="ConConverter.cs" />
     <Compile Include="FileInterface.cs" />
