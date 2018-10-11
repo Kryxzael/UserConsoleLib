@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ConsoleWorldTree
+namespace UserConsoleLib
 {
     /// <summary>
     /// Represents a range of numbers
@@ -13,12 +13,12 @@ namespace ConsoleWorldTree
         /// <summary>
         /// The smallest value of this range
         /// </summary>
-        public float Minimum { get; }
+        public double Minimum { get; }
 
         /// <summary>
         /// The biggest value of this range
         /// </summary>
-        public float Maximum { get; }
+        public double Maximum { get; }
 
         /// <summary>
         /// Is the length of this range infinite?
@@ -33,29 +33,29 @@ namespace ConsoleWorldTree
         /// <summary>
         /// Does this range have a non-infinite minimum?
         /// </summary>
-        public bool HasStart => !float.IsInfinity(Minimum);
+        public bool HasStart => !double.IsInfinity(Minimum);
 
         /// <summary>
         /// Does this range have a non-infinite maximum?
         /// </summary>
-        public bool HasEnd => !float.IsInfinity(Maximum);
+        public bool HasEnd => !double.IsInfinity(Maximum);
 
         /// <summary>
         /// The difference between the minimum and maximum value
         /// </summary>
-        public float Length => Maximum - Minimum;
+        public double Length => Maximum - Minimum;
 
         /// <summary>
         /// An empty range. This field is read-only
         /// </summary>
-        public static readonly Range ZERO = new Range(0, 0);
+        public static readonly Range ZERO = new Range(0.0, 0.0);
 
         /// <summary>
         /// A range containing every number. This field is read-only
         /// </summary>
         public static readonly Range INFINITY = From(float.NegativeInfinity);
 
-        private Range(float min, float max)
+        private Range(double min, double max)
         {
             Minimum = min;
             Maximum = max;
@@ -66,9 +66,9 @@ namespace ConsoleWorldTree
         /// </summary>
         /// <param name="start">The start point</param>
         /// <returns></returns>
-        public static Range From(float start)
+        public static Range From(double start)
         {
-            return new Range(start, float.PositiveInfinity);
+            return new Range(start, double.PositiveInfinity);
         }
 
         /// <summary>
@@ -76,9 +76,9 @@ namespace ConsoleWorldTree
         /// </summary>
         /// <param name="end">The end point</param>
         /// <returns></returns>
-        public static Range UpTo(float end)
+        public static Range UpTo(double end)
         {
-            return new Range(float.NegativeInfinity, end);
+            return new Range(double.NegativeInfinity, end);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace ConsoleWorldTree
         /// </summary>
         /// <param name="end">The end point</param>
         /// <returns></returns>
-        public Range To(float end)
+        public Range To(double end)
         {
             return new Range(Minimum, end);
         }
@@ -96,7 +96,7 @@ namespace ConsoleWorldTree
         /// </summary>
         /// <param name="value">Value to check if in range</param>
         /// <returns></returns>
-        public bool IsInRange(float value)
+        public bool IsInRange(double value)
         {
             return value >= Minimum && value <= Maximum;
         }
