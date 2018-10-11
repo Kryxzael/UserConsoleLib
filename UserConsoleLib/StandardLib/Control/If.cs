@@ -17,7 +17,7 @@ namespace UserConsoleLib.StandardLib.Control
                 .Add("Expression", true).Add("", "{").Or()
                 .Add("not", "not").Add("Expression", true).Add("", "{").Or()
                 .Add("Operand 1").Add("Operator", "==", "!=").Add("Operand 2").Add("", "{").Or()
-                .Add("Operand 1", double.NegativeInfinity, double.PositiveInfinity, false).Add("Operator", ">", "<", ">=", "<=").Add("Operand 2", double.NegativeInfinity, double.PositiveInfinity, false).Add("", "{");
+                .Add("Operand 1", Range.INFINITY, false).Add("Operator", ">", "<", ">=", "<=").Add("Operand 2", Range.INFINITY, false).Add("", "{");
         }
 
         protected override void Executed(Params args, IConsoleOutput target)

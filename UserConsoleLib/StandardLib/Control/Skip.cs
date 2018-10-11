@@ -13,7 +13,7 @@ namespace UserConsoleLib.StandardLib.Control
 
         public override Syntax GetSyntax(Params args)
         {
-            return Syntax.Begin().Or().Add("Count", 1, int.MaxValue, true).Or().Add("Name");
+            return Syntax.Begin().Or().Add("Count", Range.From(1), true).Or().Add("Name");
         }
 
         protected override void Executed(Params args, IConsoleOutput target)

@@ -28,8 +28,8 @@ namespace UserConsoleLib.StandardLib.Variables
                 .Add("Operation", "toarray", "tolist", "length", "tolower", "toupper").AddTrailing("Input").Or()
                 .Add("Operation", "split", "startswith", "endswith", "contains", "replacespace").Add("Inner value").AddTrailing("Input").Or()
                 .Add("Operation", "replace").Add("Replace").Add("Replace with").AddTrailing("Input").Or()
-                .Add("Operation", "skip").Add("Start index", 0, int.MaxValue, true).AddTrailing("Input").Or()
-                .Add("Operation", "substring").Add("Start index", 0, int.MaxValue, true).Add("Length", 0, int.MaxValue, true).AddTrailing("Input");
+                .Add("Operation", "skip").Add("Start index", Range.From(0), true).AddTrailing("Input").Or()
+                .Add("Operation", "substring").Add("Start index", Range.From(0), true).Add("Length", Range.From(0), true).AddTrailing("Input");
         }
 
         protected override void Executed(Params args, IConsoleOutput target)
@@ -74,7 +74,7 @@ namespace UserConsoleLib.StandardLib.Variables
 
                     if (skipIndex >= input.Length)
                     {
-                        ThrowOutOfRangeError(skipIndex, 0, input.Length - 1, ErrorCode.NUMBER_OUT_OF_RANGE);
+                        ThrowOutOfRangeError(skipIndex, Range.ZERO.To(input.Length - 1), ErrorCode.NUMBER_OUT_OF_RANGE);
                     }
 
                     target.WriteLine(input.Substring(skipIndex));
@@ -86,12 +86,12 @@ namespace UserConsoleLib.StandardLib.Variables
 
                     if (substrStart >= substrInput.Length)
                     {
-                        ThrowOutOfRangeError(substrStart, 0, substrInput.Length - 1, ErrorCode.NUMBER_OUT_OF_RANGE);
+                        ThrowOutOfRangeError(substrStart, Range.ZERO.To(substrInput.Length - 1), ErrorCode.NUMBER_OUT_OF_RANGE);
                     }
 
                     if (substrLength + substrStart > substrInput.Length)
                     {
-                        ThrowOutOfRangeError(substrLength, 0, substrInput.Length - substrStart, ErrorCode.NUMBER_OUT_OF_RANGE);
+                        ThrowOutOfRangeError(substrLength, Range.ZERO.To(substrInput.Length - substrStart), ErrorCode.NUMBER_OUT_OF_RANGE);
                     }
 
                     target.WriteLine(substrInput.Substring(substrStart, substrLength));

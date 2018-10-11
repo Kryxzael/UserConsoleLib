@@ -18,11 +18,11 @@ namespace UserConsoleLib.StandardLib
         {
             if (args.Count == 0)
             {
-                return Syntax.Begin().Add("Command name", AllCommandsInternal.Select(i => i.Name).ToArray()).Or().Add("Page number", 1, GetPageCount(), true).Or();
+                return Syntax.Begin().Add("Command name", AllCommandsInternal.Select(i => i.Name).ToArray()).Or().Add("Page number", Range.From(1).To(GetPageCount()), true).Or();
             }
             else if (args.Count == 1 && args.IsDouble(0))
             {
-                return Syntax.Begin().Add("Page number", 1, GetPageCount(), true);
+                return Syntax.Begin().Add("Page number", Range.From(1).To(GetPageCount()), true);
             }
             else
             {

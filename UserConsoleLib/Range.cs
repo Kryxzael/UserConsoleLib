@@ -51,6 +51,11 @@ namespace UserConsoleLib
         public static readonly Range ZERO = new Range(0.0, 0.0);
 
         /// <summary>
+        /// A point range of one. This field is read-only
+        /// </summary>
+        public static readonly Range ONE = new Range(0.0, 0.0);
+
+        /// <summary>
         /// A range containing every number. This field is read-only
         /// </summary>
         public static readonly Range INFINITY = From(float.NegativeInfinity);

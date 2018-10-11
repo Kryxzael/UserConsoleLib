@@ -112,7 +112,7 @@ namespace UserConsoleLib
             new StandardLib.Variables.Get(),
             new StandardLib.Variables.Set(),
             new StandardLib.Variables.List(),
-            new StandardLib.Variables.Range(),
+            new StandardLib.Variables.RangeCommand(),
             new StandardLib.Control.If(),
             new StandardLib.Control.EndBlock(),
             new StandardLib.Control.Load(),
@@ -448,23 +448,22 @@ namespace UserConsoleLib
         /// Throws an error indicating that a number was outside the range of valid values
         /// </summary>
         /// <param name="value">Value that was out of range</param>
-        /// <param name="minValue">Minimum expected value.</param>
-        /// <param name="maxValue">Maximum expected value.</param>
+        /// <param name="intendedRange">Expected range of the argument</param>
         /// <param name="errorCode">Non-0-non-negative error code</param>
-        protected internal static void ThrowOutOfRangeError(double value, double minValue, double maxValue, int errorCode)
+        protected internal static void ThrowOutOfRangeError(double value, Range intendedRange, int errorCode)
         {
-            if (double.IsNaN(minValue) || double.IsNaN(maxValue))
+            if (double.IsNaN(intendedRange.Minimum) || double.IsNaN(intendedRange.Maximum))
             {
                 throw new ArgumentNullException("", "NaN not supported for min or max value");
             }
 
-            if (value > minValue)
+            if (value > intendedRange.Maximum)
             {
-                throw new CommandException("The number " + value + " is too big. It must at most be " + maxValue, errorCode);
+                throw new CommandException("The number " + value + " is too big. It must at most be " + intendedRange.Maximum, errorCode);
             }
-            else if (value < maxValue)
+            else if (value < intendedRange.Minimum)
             {
-                throw new CommandException("The number " + value + " is too small. It must at least be " + minValue, errorCode);
+                throw new CommandException("The number " + value + " is too small. It must at least be " + intendedRange.Minimum, errorCode);
             }
         }
 

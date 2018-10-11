@@ -16,7 +16,7 @@ namespace UserConsoleLib.StandardLib.Variables
         {
             return Syntax.Begin()
                 .Add("Name").Add("Operation", "=").AddTrailing("Value").Or()
-                .Add("Name").Add("Operation", "+=", "-=", "*=", "/=").Add("Value", double.NegativeInfinity, double.PositiveInfinity, false).Or()
+                .Add("Name").Add("Operation", "+=", "-=", "*=", "/=").Add("Value", Range.INFINITY, false).Or()
                 .Add("Name").Add("Operation", "++", "--").Or()
                 .Add("Help", "?");
         }

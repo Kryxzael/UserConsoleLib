@@ -6,7 +6,7 @@ using System.Text;
 
 namespace UserConsoleLib.StandardLib.Variables
 {
-    class Range : Command
+    class RangeCommand : Command
     {
         public override string Name => "range";
 
@@ -14,7 +14,7 @@ namespace UserConsoleLib.StandardLib.Variables
 
         public override Syntax GetSyntax(Params args)
         {
-            return Syntax.Begin().Add("Count", 1, short.MaxValue, true).Or().Add("Start", int.MinValue, int.MaxValue, true).Add("Count", 1, short.MaxValue, true);
+            return Syntax.Begin().Add("Count", Range.From(1), true).Or().Add("Start", Range.INFINITY, true).Add("Count", Range.From(1), true);
         }
 
         protected override void Executed(Params args, IConsoleOutput target)
