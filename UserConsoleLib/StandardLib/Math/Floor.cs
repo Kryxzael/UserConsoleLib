@@ -24,7 +24,7 @@ namespace UserConsoleLib.StandardLib.Math
 
         public override Syntax GetSyntax(Params args)
         {
-            return Syntax.Begin().Add("Value", float.NegativeInfinity, float.PositiveInfinity, false);
+            return Syntax.Begin().Add("Value", Range.INFINITY, false);
         }
 
         protected override void Executed(Params args, IConsoleOutput target)

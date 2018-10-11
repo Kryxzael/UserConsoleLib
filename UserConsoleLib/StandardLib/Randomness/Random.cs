@@ -16,7 +16,7 @@ namespace UserConsoleLib.StandardLib.Randomness
 
         public override Syntax GetSyntax(Params args)
         {
-            return Syntax.Begin().Add("Max", 1, int.MaxValue, true).Or().Add("Min", int.MinValue, int.MaxValue, true).Add("Max", int.MinValue, int.MaxValue, true).Or();
+            return Syntax.Begin().Add("Max", Range.From(1), true).Or().Add("Min", Range.INFINITY, true).Add("Max", Range.INFINITY, true).Or();
         }
 
         protected override void Executed(Params args, IConsoleOutput target)
@@ -33,7 +33,7 @@ namespace UserConsoleLib.StandardLib.Randomness
             {
                 if (args.ToInt(1) <= args.ToInt(0))
                 {
-                    ThrowOutOfRangeError(args.ToInt(1), args.ToInt(0) + 1, int.MaxValue, ErrorCode.NUMBER_TOO_SMALL);
+                    ThrowOutOfRangeError(args.ToInt(1), Range.From(args.ToInt(0) + 1), ErrorCode.NUMBER_TOO_SMALL);
                 }
 
                 target.WriteLine(rng.Next(args.ToInt(0), args.ToInt(1)));

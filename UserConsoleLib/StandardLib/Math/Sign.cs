@@ -13,7 +13,7 @@ namespace UserConsoleLib.StandardLib.Math
 
         public override Syntax GetSyntax(Params args)
         {
-            return Syntax.Begin().Add("a", double.NegativeInfinity, double.PositiveInfinity, false);
+            return Syntax.Begin().Add("a", Range.INFINITY, false);
         }
 
         protected override void Executed(Params args, IConsoleOutput target)

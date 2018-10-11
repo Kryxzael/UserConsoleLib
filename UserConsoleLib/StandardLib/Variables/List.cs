@@ -22,12 +22,12 @@ namespace UserConsoleLib.StandardLib.Variables
                 .Add("create").AddTrailing("items").Or()
                 .Add("pointer").Add("operation", "add", "remove", "contains").AddTrailing("item").Or()
                 .Add("pointer").Add("operation", "addrange").AddTrailing("items").Or()
-                .Add("pointer").Add("operation", "insert").Add("index", int.MinValue, int.MaxValue, true).AddTrailing("item").Or()
-                .Add("pointer").Add("operation", "insertrange").Add("startindex", int.MinValue, int.MaxValue, true).AddTrailing("items").Or()
+                .Add("pointer").Add("operation", "insert").Add("index", Range.INFINITY, true).AddTrailing("item").Or()
+                .Add("pointer").Add("operation", "insertrange").Add("startindex", Range.INFINITY, true).AddTrailing("items").Or()
                 .Add("pointer").Add("operation", "sort").Add("sortmode", "a", "z", "1").Or()
                 .Add("pointer").Add("operation", "count", "flush", "clear", "reverse", "toarray").Or()
-                .Add("pointer").Add("index", int.MinValue, int.MaxValue, true).Or()
-                .Add("pointer").Add("index", int.MinValue, int.MaxValue, true).Add("", "=").AddTrailing("item");
+                .Add("pointer").Add("index", Range.INFINITY, true).Or()
+                .Add("pointer").Add("index", Range.INFINITY, true).Add("", "=").AddTrailing("item");
         }
 
         protected override void Executed(Params args, IConsoleOutput target)
@@ -156,7 +156,7 @@ namespace UserConsoleLib.StandardLib.Variables
                 //If the index is STILL less than zero, throw an error
                 if (index < 0)
                 {
-                    ThrowOutOfRangeError(ConConverter.ToInt(raw).Value, -target.Count, target.Count - 1, ErrorCode.NUMBER_TOO_SMALL);
+                    ThrowOutOfRangeError(ConConverter.ToInt(raw).Value, Range.From(-target.Count).To(target.Count - 1), ErrorCode.NUMBER_TOO_SMALL);
                 }
             }
 
@@ -169,7 +169,7 @@ namespace UserConsoleLib.StandardLib.Variables
             //If the user tries to index a position that is too big
             if (index >= target.Count)
             {
-                ThrowOutOfRangeError(index, 0, target.Count - 1, ErrorCode.NUMBER_TOO_BIG);
+                ThrowOutOfRangeError(index, Range.ZERO.To(target.Count - 1), ErrorCode.NUMBER_TOO_BIG);
             }
 
             return index;

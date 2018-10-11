@@ -67,13 +67,12 @@ namespace UserConsoleLib
         /// Adds a numeric parameter to this syntax
         /// </summary>
         /// <param name="name">Name of parameter</param>
-        /// <param name="min">Minimum value of parameter</param>
-        /// <param name="max">Maximum value of parameter</param>
+        /// <param name="range">The range of valid values this parameter can have</param>
         /// <param name="intOnly">If true, this parameter must be an integer</param>
         /// <returns></returns>
-        public Syntax Add(string name, double min, double max, bool intOnly)
+        public Syntax Add(string name, Range range, bool intOnly)
         {
-            Items.Add(new SyntaxItem() { Name = name, Min = min, Max = max, Type = intOnly ? SyntaxItemType.Integer : SyntaxItemType.Number });
+            Items.Add(new SyntaxItem() { Name = name, Range = range, Type = intOnly ? SyntaxItemType.Integer : SyntaxItemType.Number });
             return this;
         }
 
@@ -193,7 +192,7 @@ namespace UserConsoleLib
                     case SyntaxItemType.Free:
                         continue;
                     case SyntaxItemType.Number:
-                        if (args.IsDouble(i) && args.ToDouble(i) >= Items[i].Min && args.ToDouble(i) <= Items[i].Max)
+                        if (args.IsDouble(i) && Items[i].Range.IsInRange(args.ToDouble(i)))
                         {
                             continue;
                         }
@@ -207,13 +206,13 @@ namespace UserConsoleLib
                             }
                             else
                             {
-                                Command.ThrowOutOfRangeError(args.ToDouble(i), Items[i].Min, Items[i].Max, ErrorCode.NUMBER_OUT_OF_RANGE);
+                                Command.ThrowOutOfRangeError(args.ToDouble(i), Items[i].Range, ErrorCode.NUMBER_OUT_OF_RANGE);
                             }
                         }
 
                         return b;
                     case SyntaxItemType.Integer:
-                        if (args.IsInteger(i) && args.ToInt(i) >= Items[i].Min && args.ToInt(i) <= Items[i].Max)
+                        if (args.IsInteger(i) && Items[i].Range.IsInRange(args.ToInt(i)))
                         {
                             continue;
                         }
@@ -235,7 +234,7 @@ namespace UserConsoleLib
                             }
                             else
                             {
-                                Command.ThrowOutOfRangeError(args.ToDouble(i), Items[i].Min, Items[i].Max, ErrorCode.NUMBER_OUT_OF_RANGE);
+                                Command.ThrowOutOfRangeError(args.ToDouble(i), Items[i].Range, ErrorCode.NUMBER_OUT_OF_RANGE);
                             }
                         }
 
@@ -290,27 +289,7 @@ namespace UserConsoleLib
                         break;
                     case SyntaxItemType.Number:
                     case SyntaxItemType.Integer:
-                        if (double.IsNegativeInfinity(i.Min) || i.Min == int.MinValue || i.Min == double.MinValue)
-                        {
-                            if (double.IsPositiveInfinity(i.Max) || i.Max == int.MaxValue || i.Max == double.MaxValue)
-                            {
-                                _ += " (#)";
-                            }
-                            else
-                            {
-                                _ += " (.." + i.Max + ")";
-                            }
-                        }
-                        else if (double.IsPositiveInfinity(i.Max) || i.Max == int.MaxValue || i.Max == double.MaxValue)
-                        {
-                            _ += " (" + i.Min + "..)";
-                        }
-                        else
-                        {
-                            _ += " (" + i.Min + ".." + i.Max + ")";
-                        }
-
-
+                        _ += i.Range.ToString();
                         break;
                     case SyntaxItemType.List:
                         if (i.ValidItems == BOOLEAN_VALUES || i.ValidItems == BOOLEAN_VALUES_STRICT)
@@ -358,7 +337,7 @@ namespace UserConsoleLib
                 throw new ArgumentException("The specified argument is not a numeric argument");
             }
 
-            return Items[index].Min;
+            return Items[index].Range.Minimum;
         }
 
         /// <summary>
@@ -373,7 +352,7 @@ namespace UserConsoleLib
                 throw new ArgumentException("The specified argument is not a numeric argument");
             }
 
-            return Items[index].Max;
+            return Items[index].Range.Maximum;
         }
 
         /// <summary>
@@ -530,8 +509,7 @@ namespace UserConsoleLib
             public string Name { get; set; }
             public SyntaxItemType Type { get; set; }
             public string[] ValidItems { get; set; }
-            public double Min { get; set; }
-            public double Max { get; set; }
+            public Range Range { get; set; }
         }
 
         /// <summary>
