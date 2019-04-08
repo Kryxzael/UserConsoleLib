@@ -9,7 +9,7 @@ namespace UserConsoleLib
     /// <summary>
     /// Represents a safe list of parameters
     /// </summary>
-    public class Params : IEnumerable<string>, IEnumerator<string>
+    public class Params : IEnumerable<string>
     {
         List<string> Internal { get; }
 
@@ -34,16 +34,6 @@ namespace UserConsoleLib
         /// Gets the amount of paramets this parameter collection has
         /// </summary>
         public int Count => Internal.Count;
-
-        /// <summary>
-        /// Gets the current element in an enumeration process
-        /// </summary>
-        public string Current => GetEnumerator().Current;
-
-        /// <summary>
-        /// Gets the current element in an enumeration process
-        /// </summary>
-        object IEnumerator.Current => GetEnumerator().Current;
 
         /// <summary>
         /// Creates a prameter collection
@@ -180,30 +170,6 @@ namespace UserConsoleLib
         IEnumerator IEnumerable.GetEnumerator()
         {
             return Internal.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Advances the enumeration to the next parameter
-        /// </summary>
-        public bool MoveNext()
-        {
-            return GetEnumerator().MoveNext();
-        }
-
-        /// <summary>
-        /// Resets the position of the enumeration
-        /// </summary>
-        public void Reset()
-        {
-            GetEnumerator().Reset();
-        }
-
-        /// <summary>
-        /// Releases internal resources used durring enumeration processes
-        /// </summary>
-        public void Dispose()
-        {
-           GetEnumerator().Dispose();
         }
 
         /// <summary>
