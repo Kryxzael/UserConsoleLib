@@ -289,7 +289,7 @@ namespace UserConsoleLib
                         break;
                     case SyntaxItemType.Number:
                     case SyntaxItemType.Integer:
-                        _ += i.Range.ToString();
+                        _ += " " + i.Range.ToString();
                         break;
                     case SyntaxItemType.List:
                         if (i.ValidItems == BOOLEAN_VALUES || i.ValidItems == BOOLEAN_VALUES_STRICT)
