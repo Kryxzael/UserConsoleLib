@@ -110,6 +110,9 @@ namespace UserConsoleLib
             int stackOverflow = 0;
             int @out = 0;
 
+            //Create top level scope
+            Scope.Push(new ScopeLoopPoint(false, new ScriptTargetWrapper(output, this)));
+
             while (Step(output, out int errOut))
             {
                 stackOverflow++;
