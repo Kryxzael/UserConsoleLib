@@ -19,15 +19,7 @@ namespace UserConsoleLib.StandardLib.Variables
 
         protected override void Executed(Params args, IConsoleOutput target)
         {
-            if (target is ScriptTargetWrapper i)
-            {
-                target.WriteLine(i.Session.Scope.Peek().Locals.Get(args[0]));
-            }
-            else
-            {
-                target.WriteLine(VariableCollection.GlobalVariables.Get(args[0]));
-            }
-            
+            target.WriteLine(VariableCollection.GlobalVariables.Get(args[0]));
         }
     }
 }

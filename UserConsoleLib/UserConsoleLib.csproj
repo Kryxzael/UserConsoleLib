@@ -54,33 +54,18 @@
     <Compile Include="ExtendedLib\IO\Directory.cs" />
     <Compile Include="ExtendedLib\IO\File.cs" />
     <Compile Include="Range.cs" />
-    <Compile Include="ScriptTargetWrapper.cs" />
     <Compile Include="ConConverter.cs" />
     <Compile Include="FileInterface.cs" />
     <Compile Include="IConsoleOutput.cs" />
     <Compile Include="Params.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScriptHost.cs" />
     <Compile Include="StandardLib\Bracket.cs" />
-    <Compile Include="StandardLib\Breaking\Continue.cs" />
-    <Compile Include="StandardLib\Breaking\Return.cs" />
     <Compile Include="StandardLib\Clear.cs" />
     <Compile Include="StandardLib\Control\Boolean.cs" />
     <Compile Include="ExtendedLib\IO\Cd.cs" />
-    <Compile Include="StandardLib\Breaking\Break.cs" />
-    <Compile Include="StandardLib\Control\DebugBreak.cs" />
-    <Compile Include="StandardLib\Control\EndBlock.cs" />
-    <Compile Include="StandardLib\Breaking\Endscript.cs" />
-    <Compile Include="StandardLib\Control\For.cs" />
-    <Compile Include="StandardLib\Control\Label.cs" />
     <Compile Include="StandardLib\Control\Not.cs" />
     <Compile Include="StandardLib\Control\Or.cs" />
     <Compile Include="StandardLib\Control\And.cs" />
-    <Compile Include="StandardLib\Control\If.cs" />
-    <Compile Include="StandardLib\Control\Load.cs" />
-    <Compile Include="StandardLib\Control\Skip.cs" />
-    <Compile Include="StandardLib\Control\Teterary.cs" />
-    <Compile Include="StandardLib\Control\While.cs" />
     <Compile Include="StandardLib\Echo.cs" />
     <Compile Include="StandardLib\Exit.cs" />
     <Compile Include="StandardLib\Help.cs" />
@@ -102,8 +87,6 @@
     <Compile Include="StandardLib\Math\Tan.cs" />
     <Compile Include="StandardLib\Randomness\Choose.cs" />
     <Compile Include="StandardLib\Randomness\Random.cs" />
-    <Compile Include="StandardLib\Structure\Call.cs" />
-    <Compile Include="StandardLib\Structure\Function.cs" />
     <Compile Include="StandardLib\Variables\Get.cs" />
     <Compile Include="StandardLib\Variables\List.cs" />
     <Compile Include="StandardLib\Variables\Range.cs" />
@@ -129,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ExtendedLib\Forms\" />
+    <Folder Include="StandardLib\Structure\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

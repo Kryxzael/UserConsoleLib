@@ -59,7 +59,7 @@ namespace UserConsoleLib
             try
             {
                 //If the user attempt to use commands like  if, while and for outside a script context
-                if (IsCodeBlockCommand() && !(target is ScriptTargetWrapper))
+                if (IsCodeBlockCommand())
                 {
                     ThrowGenericError("This command can only be used in script files", ErrorCode.INVALID_CONTEXT);
                 }
@@ -113,30 +113,18 @@ namespace UserConsoleLib
             new StandardLib.Variables.Set(),
             new StandardLib.Variables.List(),
             new StandardLib.Variables.RangeCommand(),
-            new StandardLib.Control.If(),
-            new StandardLib.Control.EndBlock(),
-            new StandardLib.Control.Load(),
             new StandardLib.Control.And(),
             new StandardLib.Control.Or(),
             new StandardLib.Control.Boolean(),
             new StandardLib.Control.Not(),
-            new StandardLib.Control.Skip(),
-            new StandardLib.Control.Label(),
             new ExtendedLib.IO.Cd(),
             new ExtendedLib.IO.Dir(),
             new ExtendedLib.IO.File(),
             new ExtendedLib.IO.Directory(),
-            new StandardLib.Control.DebugBreak(),
-            new StandardLib.Control.While(),
-            new StandardLib.Control.For(),
             new StandardLib.Variables.String(),
-            new StandardLib.Structure.Function(),
-            new StandardLib.Breaking.Endscript(),
             new StandardLib.Math.Floor(),
             new StandardLib.Math.Ceiling(),
             new StandardLib.Math.Sqrt(),
-            new StandardLib.Breaking.Break(),
-            new StandardLib.Breaking.Continue(),
             new StandardLib.Brackets.BracketClose(),
             new StandardLib.Brackets.BracketOpen(),
             new StandardLib.Brackets.Brac(),
@@ -301,16 +289,7 @@ namespace UserConsoleLib
    
         static int Parseline(IEnumerator<char> e, IConsoleOutput target)
         {
-            VariableCollection vars;
-
-            if (target is ScriptTargetWrapper v && v.Session.Scope.Any())
-            {
-                vars = v.Session.Scope.Peek().Locals;
-            }
-            else
-            {
-                vars = VariableCollection.GlobalVariables;
-            }
+            VariableCollection vars = VariableCollection.GlobalVariables;
 
             List<string> _ = new List<string>
             {

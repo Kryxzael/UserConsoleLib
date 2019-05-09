@@ -35,16 +35,7 @@ namespace UserConsoleLib.StandardLib.Variables
                 return;
             }
 
-            VariableCollection var;
-
-            if (target is ScriptTargetWrapper o)
-            {
-                var = o.Session.Scope.Peek().Locals;
-            }
-            else
-            {
-                var = VariableCollection.GlobalVariables;
-            }
+            VariableCollection var = VariableCollection.GlobalVariables;
 
             switch (args[1])
             {
