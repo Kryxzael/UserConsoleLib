@@ -13,12 +13,12 @@ namespace UserConsoleLib.Scripting
         /// <summary>
         /// The command portion of the line
         /// </summary>
-        public string Command { get; }
+        public string Command { get; set; }
 
         /// <summary>
         /// The parameters of the command
         /// </summary>
-        public Params Parameters { get; }
+        public Params Parameters { get; set; }
 
         /// <summary>
         /// Converts the given string into a LineCommand instance
@@ -28,6 +28,12 @@ namespace UserConsoleLib.Scripting
         {
             //Trim line of any prefixes or sufixes
             raw = raw.Trim();
+
+            if (raw.StartsWith("(") && raw.EndsWith(")"))
+            {
+                raw = raw.Substring(1, raw.Length - 2);
+            }
+
 
             //Extract the command
             Command = FindFirstCommandComponent(raw);
@@ -74,6 +80,35 @@ namespace UserConsoleLib.Scripting
         }
 
         /// <summary>
+        /// Is the command portion of this line a subexpression?
+        /// </summary>
+        /// <returns></returns>
+        public bool CommandIsSubExpression()
+        {
+            return Command.StartsWith("(");
+        }
+
+        /// <summary>
+        /// Is the command portion of this code block?
+        /// </summary>
+        /// <returns></returns>
+        public bool CommandIsCodeBlock()
+        {
+            return Command.StartsWith("{");
+        }
+
+        /// <summary>
+        /// Is the command portion of this line a subexpression or code block?
+        /// </summary>
+        /// <returns></returns>
+        public bool CommandIsBlock()
+        {
+            return CommandIsSubExpression() || CommandIsCodeBlock();
+        }
+
+        
+
+        /// <summary>
         /// Finds and returns the first command/argument of the given string
         /// </summary>
         /// <param name="input">A command string</param>
@@ -100,12 +135,18 @@ namespace UserConsoleLib.Scripting
 
                     //Close scope
                     case ')':
+                        if (!levels.Any())
+                            throw new CommandException("Syntax error: Unexpected token ')'", ErrorCode.INTERNAL_ERROR);
+
                         if (levels.Pop() != '(')
                         {
                             throw new CommandException("Syntax error: Expected ')'", ErrorCode.INTERNAL_ERROR);
                         }
                         break;
                     case '}':
+                        if (!levels.Any())
+                            throw new CommandException("Syntax error: Unexpected token '}'", ErrorCode.INTERNAL_ERROR);
+
                         if (levels.Pop() != '{')
                         {
                             throw new CommandException("Syntax error: Expected '}'", ErrorCode.INTERNAL_ERROR);

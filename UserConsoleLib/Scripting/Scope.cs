@@ -62,6 +62,16 @@ namespace UserConsoleLib
             /*
              * Reversed recursive evaluation
              */
+            //Command is subexpression and must be evaluated
+            //This block is neccessary for commands like 'echo ((random 0 10) * 2)'
+            if (line.CommandIsSubExpression())
+            {
+                //runs subexpression and stores its result in 'pipe'
+                StringInterface pipe = new StringInterface();
+                ParseLine(line.Command, pipe);
+                line.Command = pipe.LastOrDefault();
+            }
+
             for (int i = 0; i < line.Parameters.Count; i++)
             {
                 //Parameter i is a subexpression and must be evaluated
@@ -69,7 +79,7 @@ namespace UserConsoleLib
                 {
                     //Runs subexpression and stores its result in 'pipe'
                     StringInterface pipe = new StringInterface();
-                    ParseLine(new Line(line.Parameters[i].TrimStart('(').TrimEnd(')')), pipe);
+                    ParseLine(line.Parameters[i], pipe);
 
                     //Parameter is update to the output of the evaluated subexpression
                     line.Parameters[i] = pipe.LastOrDefault();
