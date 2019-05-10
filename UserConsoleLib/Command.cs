@@ -109,8 +109,8 @@ namespace UserConsoleLib
             new StandardLib.Math.Sum(),
             new StandardLib.Randomness.Random(),
             new StandardLib.Randomness.Choose(),
-            new StandardLib.Variables.Get(),
-            new StandardLib.Variables.Set(),
+            new StandardLib.Variables.Var(),
+            new StandardLib.Variables.Varop(),
             new StandardLib.Variables.List(),
             new StandardLib.Variables.RangeCommand(),
             new StandardLib.Control.And(),
@@ -345,13 +345,13 @@ namespace UserConsoleLib
                     //If there are no arguments to the command, it must be a get operation
                     if (_.Count == 1)
                     {
-                        cmd = GetByType<StandardLib.Variables.Get>();
+                        //cmd = GetByType<StandardLib.Variables.Get>();
                         _ = new List<string>() { "get", _[0].TrimStart('$') };
                     }
                     //If there are arguments to the command, it must be a set operation
                     else
                     {
-                        cmd = GetByType<StandardLib.Variables.Set>();
+                        //cmd = GetByType<StandardLib.Variables.Set>();
 
                         IEnumerable<string> _2 = _.AsEnumerable();
                         _ = new List<string>() { "get", _[0].TrimStart('$') };

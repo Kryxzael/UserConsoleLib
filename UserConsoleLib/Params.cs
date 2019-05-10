@@ -28,6 +28,14 @@ namespace UserConsoleLib
                 }
                 return Internal[index];
             }
+            internal set
+            {
+                if (index >= Internal.Count)
+                {
+                    return;
+                }
+                Internal[index] = value;
+            }
         }
 
         /// <summary>

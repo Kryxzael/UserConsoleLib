@@ -59,6 +59,9 @@
     <Compile Include="IConsoleOutput.cs" />
     <Compile Include="Params.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripting\Line.cs" />
+    <Compile Include="Scripting\Lines.cs" />
+    <Compile Include="Scripting\Scope.cs" />
     <Compile Include="StandardLib\Bracket.cs" />
     <Compile Include="StandardLib\Clear.cs" />
     <Compile Include="StandardLib\Control\Boolean.cs" />
@@ -87,11 +90,11 @@
     <Compile Include="StandardLib\Math\Tan.cs" />
     <Compile Include="StandardLib\Randomness\Choose.cs" />
     <Compile Include="StandardLib\Randomness\Random.cs" />
-    <Compile Include="StandardLib\Variables\Get.cs" />
     <Compile Include="StandardLib\Variables\List.cs" />
     <Compile Include="StandardLib\Variables\Range.cs" />
-    <Compile Include="StandardLib\Variables\Set.cs" />
     <Compile Include="StandardLib\Variables\String.cs" />
+    <Compile Include="StandardLib\Variables\Var.cs" />
+    <Compile Include="StandardLib\Variables\Varop.cs" />
     <Compile Include="StringInterface.cs" />
     <Compile Include="Syntax.cs" />
     <Compile Include="UserConsole.cs">

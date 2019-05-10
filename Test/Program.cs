@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using UserConsoleLib;
+using UserConsoleLib.Scripting;
 
 namespace Test
 {
@@ -11,6 +12,11 @@ namespace Test
     {
         public static void Main(string[] args)
         {
+            CustomScopeOutput output = new CustomScopeOutput();
+            while (true)
+            {
+                output.ReadLine();
+            }
             ConsoleOutputRouter router = new ConsoleOutputRouter();
             ConsoleInterface @interface = new ConsoleInterface();
 
