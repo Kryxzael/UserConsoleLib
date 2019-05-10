@@ -19,7 +19,7 @@ namespace UserConsoleLib.ExtendedLib.IO
             return Syntax.Begin().Add("Path").Or();
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             if (args.Count == 0)
             {

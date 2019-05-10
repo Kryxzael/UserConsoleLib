@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-
+using UserConsoleLib.Scripting;
 
 namespace UserConsoleLib
 {
@@ -27,7 +27,8 @@ namespace UserConsoleLib
         /// </summary>
         /// <param name="args">Arguments passed to this command call</param>
         /// <param name="target">Writable console output</param>
-        protected abstract void Executed(Params args, IConsoleOutput target);
+        /// <param name="scope">The scope the command was executed from</param>
+        protected abstract void Executed(Params args, IConsoleOutput target, Scope scope);
 
         /// <summary>
         /// Can you run this command from the console?
@@ -54,7 +55,8 @@ namespace UserConsoleLib
         /// </summary>
         /// <param name="arguments">Arguments to pass to the command</param>
         /// <param name="target">Writable console target</param>
-        public int Execute(IEnumerable<string> arguments, IConsoleOutput target)
+        /// <param name="scope">The scope to execute this function in</param>
+        public int Execute(IEnumerable<string> arguments, IConsoleOutput target, Scope scope)
         {
             try
             {
@@ -67,7 +69,7 @@ namespace UserConsoleLib
                 Params p = new Params(arguments);
                 GetSyntax(p).IsCorrectSyntax(this, p, true);
 
-                Executed(p, target);
+                Executed(p, target, scope);
                 return 0;
             }
             catch (CommandException x)
@@ -254,130 +256,6 @@ namespace UserConsoleLib
 			name = name.Trim();
             return AllCommandsInternal.Where(i => i.Name.ToUpper() == name.ToUpper()).LastOrDefault();
 		}
-
-        /// <summary>
-        /// Parses and invokes a command line entry
-        /// </summary>
-        /// <param name="line">Line to parse</param>
-        /// <param name="target">Writable console target</param>
-        public static int ParseLine(string line, IConsoleOutput target)
-        {
-            if (string.IsNullOrEmpty(line))
-            {
-                return 0;
-            }
-
-            return Parseline(line.GetEnumerator(), target);
-
-
-
-
-
-            //string[] escapedList = Regex.Matches(line, @"[\""].+?[\""]|[^ ]+").Cast<Match>().Select(m => m.Value).ToArray();
-
-            //Command cmd = GetByName(escapedList[0]);
-
-            //if (cmd == null)
-            //{
-            //    target.WriteError("No such command with name '" + escapedList[0] + "'");
-            //    return -1;
-            //}
-
-            //return cmd.Execute(escapedList.Skip(1), target);
-
-        }
-   
-        static int Parseline(IEnumerator<char> e, IConsoleOutput target)
-        {
-            VariableCollection vars = VariableCollection.GlobalVariables;
-
-            List<string> _ = new List<string>
-            {
-                ""
-            };
-
-            while (e.MoveNext())
-            {
-                if (e.Current == '(')
-                {
-                    StringInterface i = new StringInterface();
-                    int outputCode = Parseline(e, i);
-
-                    if (outputCode != 0)
-                    {
-                        target.WriteError("Internal " + i.Last());
-                        return outputCode;
-                    }
-
-                    _ = _.Concat((i.LastOrDefault() ?? "").Split(' ')).ToList();
-                }
-                else if (e.Current == ' ')
-                {
-                    _.Add("");
-                }
-                else if (e.Current == ')')
-                {
-                    break;
-                }
-                else
-                {
-                    _[_.Count - 1] += e.Current;
-                }
-            }
-
-            _.RemoveAll(i => string.IsNullOrEmpty(i));
-            _[0] = _[0].TrimStart();
-
-            Command cmd = GetByName(_[0]);
-
-            //If command was not found, or wasn't a command
-            if (cmd == null)
-            {
-                //If the 'command name' was a valid number, it must be an arithmeric operation
-                if (double.TryParse(_[0], out double i))
-                {
-                    cmd = GetByType<StandardLib.Math.Operation>();
-                    _.Insert(0, "op");
-                }
-                //If the 'command name' was the name of a variable, it must be a set or get operation
-                else if (vars.IsDefined(_[0].TrimStart('$')))
-                {
-                    //If there are no arguments to the command, it must be a get operation
-                    if (_.Count == 1)
-                    {
-                        //cmd = GetByType<StandardLib.Variables.Get>();
-                        _ = new List<string>() { "get", _[0].TrimStart('$') };
-                    }
-                    //If there are arguments to the command, it must be a set operation
-                    else
-                    {
-                        //cmd = GetByType<StandardLib.Variables.Set>();
-
-                        IEnumerable<string> _2 = _.AsEnumerable();
-                        _ = new List<string>() { "get", _[0].TrimStart('$') };
-                        _.AddRange(_2.Skip(1));
-
-                    }
-                }
-                else
-                {
-                    if (_[0].StartsWith("$"))
-                    {
-                        target.WriteError("No such variable with name '" + _[0].TrimStart('$') + "'");
-                    }
-                    else
-                    {
-                        target.WriteError("No such command with name '" + _[0] + "'");
-                    }
-                    
-                    return -1;
-                }
-            }
-
-            return cmd.Execute(_.Skip(1), target);
-
-
-        }
 
         #region Exception throwing
 

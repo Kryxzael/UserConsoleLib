@@ -27,7 +27,7 @@ namespace UserConsoleLib.StandardLib.Math
             return Syntax.Begin().Add("Value", Range.INFINITY, false);
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             target.WriteLine(System.Math.Round(args.ToDouble(0)));
         }

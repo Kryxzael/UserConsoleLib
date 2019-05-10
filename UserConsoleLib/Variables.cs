@@ -12,11 +12,6 @@ namespace UserConsoleLib
     public class VariableCollection
     {
         /// <summary>
-        /// Houses every global variable
-        /// </summary>
-        public static VariableCollection GlobalVariables { get; } = new VariableCollection();
-
-        /// <summary>
         /// The collection of variables parented to this collection
         /// </summary>
         public VariableCollection ParentCollection { get; }

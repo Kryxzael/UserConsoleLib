@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UserConsoleLib.Scripting;
 
-namespace UserConsoleLib.Scripting
+namespace UserConsoleLib
 {
     /// <summary>
     /// Represents a code block with its own variable collection, that can be executed sequentially
     /// </summary>
     public class Scope
     {
+        /// <summary>
+        /// The top-level scope. Everything defined here is available to all subscopes
+        /// </summary>
+        public static readonly Scope GlobalScope = new Scope();
+
         /// <summary>
         /// Gets a collection of this scopes imediate variables
         /// </summary>
@@ -34,7 +40,18 @@ namespace UserConsoleLib.Scripting
         /// </summary>
         public Scope()
         {
-            Variables = new VariableCollection(VariableCollection.GlobalVariables);
+            Variables = new VariableCollection();
+        }
+
+        /// <summary>
+        /// Parses a command in the given scope
+        /// </summary>
+        /// <param name="line"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int ParseLine(string line, IConsoleOutput target)
+        {
+            return ParseLine(new Line(line), target);
         }
 
         /// <summary>
@@ -72,7 +89,8 @@ namespace UserConsoleLib.Scripting
                 {
                     return Command.GetByType<StandardLib.Math.Operation>().Execute(
                         arguments: new string[] { line.Command }.Concat(line.Parameters), 
-                        target: target
+                        target: target,
+                        scope: this
                     );
                 }
 
@@ -81,7 +99,8 @@ namespace UserConsoleLib.Scripting
                 {
                     return Command.GetByType<StandardLib.Variables.Varop>().Execute(
                         arguments: new string[] { line.Command }.Concat(line.Parameters),
-                        target: target
+                        target: target,
+                        scope: this
                     );
                 }
 
@@ -97,7 +116,7 @@ namespace UserConsoleLib.Scripting
             //Command is found
             else
             {
-                return cmd.Execute(line.Parameters, target);
+                return cmd.Execute(line.Parameters, target, this);
             }
         }
 

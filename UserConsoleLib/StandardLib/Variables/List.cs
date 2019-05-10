@@ -30,7 +30,7 @@ namespace UserConsoleLib.StandardLib.Variables
                 .Add("pointer").Add("index", Range.INFINITY, true).Add("", "=").AddTrailing("item");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             //If the user is creating a list
             if (args[0] == "create")

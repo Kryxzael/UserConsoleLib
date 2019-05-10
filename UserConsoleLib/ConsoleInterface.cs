@@ -62,7 +62,7 @@ namespace UserConsoleLib
         {
             Console.Write("> ");
 
-            return Command.ParseLine(Console.ReadLine(), target);
+            return Scope.GlobalScope.ParseLine(Console.ReadLine(), target);
         }
 
         /// <summary>

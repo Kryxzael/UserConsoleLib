@@ -32,7 +32,7 @@ namespace UserConsoleLib.StandardLib.Variables
                 .Add("Operation", "substring").Add("Start index", Range.From(0), true).Add("Length", Range.From(0), true).AddTrailing("Input");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             switch (args[0])
             {

@@ -15,7 +15,7 @@ namespace UserConsoleLib.StandardLib.Control
             return Syntax.Begin().Add("Boolean", true);
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             target.WriteLine(!args.ToBoolean(0));
         }

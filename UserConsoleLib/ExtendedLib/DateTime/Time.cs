@@ -28,7 +28,7 @@ namespace UserConsoleLib.ExtendedLib.DateTime
                 .AddTrailing("format");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             if (args.Count == 0)
             {

@@ -19,7 +19,7 @@ namespace UserConsoleLib.StandardLib.Randomness
             return Syntax.Begin().Add("Max", Range.From(1), true).Or().Add("Min", Range.INFINITY, true).Add("Max", Range.INFINITY, true).Or();
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             if (args.Count == 0)
             {

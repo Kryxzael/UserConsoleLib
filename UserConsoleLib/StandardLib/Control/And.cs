@@ -15,7 +15,7 @@ namespace UserConsoleLib.StandardLib.Control
             return Syntax.Begin().AddTrailing("Booleans");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             List<bool> l = new List<bool>();
 

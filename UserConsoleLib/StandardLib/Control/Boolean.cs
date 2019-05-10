@@ -18,7 +18,7 @@ namespace UserConsoleLib.StandardLib.Control
                 .Add("Operand 1", Range.INFINITY, false).Add("Operator", ">", "<", ">=", "<=").Add("Operand 2", Range.INFINITY, false);
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             target.WriteLine(Evaluate(args));
         }

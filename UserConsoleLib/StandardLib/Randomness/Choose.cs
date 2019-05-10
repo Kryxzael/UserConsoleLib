@@ -17,7 +17,7 @@ namespace UserConsoleLib.StandardLib.Randomness
             return Syntax.Begin().AddTrailing("Values");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             target.WriteLine(args[Random.rng.Next(args.Count)]);
         }

@@ -20,7 +20,7 @@ namespace UserConsoleLib.ExtendedLib.IO
                 .Add("option", "write").Add("path").AddTrailing("text");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             try
             {

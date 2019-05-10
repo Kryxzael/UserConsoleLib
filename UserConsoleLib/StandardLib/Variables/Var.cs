@@ -17,10 +17,9 @@ namespace UserConsoleLib.StandardLib.Variables
                 .Add("Variable name").Add("", "=").AddTrailing("Value");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
-            //TODO: We need to actually scope this!!
-            VariableCollection vars = VariableCollection.GlobalVariables;
+            VariableCollection vars = scope.Variables;
 
             //Throw if a variable with the given name already exists in the immediate scope
             if (vars.AllVariables.Any(i => i.Key == args[0]))

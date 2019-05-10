@@ -12,11 +12,6 @@ namespace Test
     {
         public static void Main(string[] args)
         {
-            CustomScopeOutput output = new CustomScopeOutput();
-            while (true)
-            {
-                output.ReadLine();
-            }
             ConsoleOutputRouter router = new ConsoleOutputRouter();
             ConsoleInterface @interface = new ConsoleInterface();
 

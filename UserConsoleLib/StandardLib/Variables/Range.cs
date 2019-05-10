@@ -17,7 +17,7 @@ namespace UserConsoleLib.StandardLib.Variables
             return Syntax.Begin().Add("Count", Range.From(1), true).Or().Add("Start", Range.INFINITY, true).Add("Count", Range.From(1), true);
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             if (args.Count == 1)
             {

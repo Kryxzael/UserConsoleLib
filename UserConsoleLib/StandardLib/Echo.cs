@@ -19,7 +19,7 @@ namespace UserConsoleLib.StandardLib
             return Syntax.Begin().AddTrailing("Text");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             target.WriteLine(args.JoinEnd(0));
         }

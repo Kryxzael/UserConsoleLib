@@ -16,7 +16,7 @@ namespace UserConsoleLib.StandardLib.Math
             return Syntax.Begin();
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             target.WriteLine(System.Math.E);
         }

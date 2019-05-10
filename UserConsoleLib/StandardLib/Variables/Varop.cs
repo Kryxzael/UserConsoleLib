@@ -22,10 +22,9 @@ namespace UserConsoleLib.StandardLib.Variables
 
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
-            //TODO: Again, needs to be scoped!
-            VariableCollection vars = VariableCollection.GlobalVariables;
+            VariableCollection vars = scope.Variables;
 
             if (args[0] == "?")
             {

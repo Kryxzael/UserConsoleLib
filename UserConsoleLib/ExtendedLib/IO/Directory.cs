@@ -19,7 +19,7 @@ namespace UserConsoleLib.ExtendedLib.IO
                 .Add("option", "rename").Add("path").AddTrailing("newname");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             try
             {

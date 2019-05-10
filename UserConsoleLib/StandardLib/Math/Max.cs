@@ -16,7 +16,7 @@ namespace UserConsoleLib.StandardLib.Math
             return Syntax.Begin().AddTrailing("Numbers (#)");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             List<double> l = new List<double>();
 

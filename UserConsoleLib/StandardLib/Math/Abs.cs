@@ -16,7 +16,7 @@ namespace UserConsoleLib.StandardLib.Math
             return Syntax.Begin().Add("n", Range.INFINITY, false);
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             target.WriteLine(System.Math.Abs(args.ToDouble(0)));
         }

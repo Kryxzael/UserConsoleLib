@@ -91,7 +91,7 @@ namespace UserConsoleLib
             ListOuput.Nodes.Add(new TreeNode("> " + TextboxInput.Text) { ForeColor = Color.Gray });
             ListOuput.Nodes[ListOuput.Nodes.Count - 1].EnsureVisible();
 
-            Command.ParseLine(TextboxInput.Text, TargetOutputDevice ?? this);
+            Scope.GlobalScope.ParseLine(TextboxInput.Text, TargetOutputDevice ?? this);
 
             _commandHistory.Add(TextboxInput.Text);
             _lastHistoryIndex = 0;

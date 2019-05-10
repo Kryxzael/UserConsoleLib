@@ -28,7 +28,7 @@ namespace UserConsoleLib.StandardLib.Brackets
             return Syntax.Begin();
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             target.WriteLine("(");
         }
@@ -57,7 +57,7 @@ namespace UserConsoleLib.StandardLib.Brackets
             return Syntax.Begin();
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             target.WriteLine(")");
         }
@@ -89,7 +89,7 @@ namespace UserConsoleLib.StandardLib.Brackets
                 .AddTrailing("text");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             if (args.Count != 0)
             {

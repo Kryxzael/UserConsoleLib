@@ -20,7 +20,7 @@ namespace Test
             return Syntax.Begin().Add("");
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             Color clr;
             try

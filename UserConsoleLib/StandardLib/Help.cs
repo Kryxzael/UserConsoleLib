@@ -31,13 +31,13 @@ namespace UserConsoleLib.StandardLib
             
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             Command[] enabledCommands = AllCommandsInternal.Where(i => i.IsEnabled).ToArray();
 
             if (args.Count == 0)
             {
-                Executed(new Params(new string[] { 1.ToString() }), target);
+                Executed(new Params(new string[] { 1.ToString() }), target, scope);
                 return;
             }
 

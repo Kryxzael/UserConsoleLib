@@ -16,7 +16,7 @@ namespace UserConsoleLib.StandardLib.Math
             return Syntax.Begin().Add("Operand", Range.INFINITY, false).Add("Operator", "+", "-", "*", "/", "%").Add("Operand", Range.INFINITY, false);
         }
 
-        protected override void Executed(Params args, IConsoleOutput target)
+        protected override void Executed(Params args, IConsoleOutput target, Scope scope)
         {
             switch (args[1])
             {
