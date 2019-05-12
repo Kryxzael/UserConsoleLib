@@ -24,7 +24,7 @@ namespace UserConsoleLib
         /// <summary>
         /// Gets the lines of commands this scope contains
         /// </summary>
-        public Lines Lines { get; }
+        public Lines Lines { get; private set; }
 
         /// <summary>
         /// Defines a new scope with the given parent scope and lines
@@ -134,10 +134,81 @@ namespace UserConsoleLib
         /// Creates a scope from the input buffer. This can be a single line or a code block made with braces
         /// </summary>
         /// <param name="input"></param>
+        /// <param name="parent"></param>
         /// <returns></returns>
-        public static Scope FromBuffer(string[] input)
+        public static Scope FromLines(string input, Scope parent)
         {
-            throw new NotImplementedException();
+            //Stores the lines as strings. Values are appended char by char to the last element of this list which is why it's initialized with one value
+            List<string> lines = new List<string> { "" };
+
+            //Stores the scopes of the iteration
+            Stack<char> levels = new Stack<char>();
+
+            //Is the iteration currently inside a code block. Semicolons are not registered while inside these blocks
+            bool inSubScope() => levels.Any(i => i == '{');
+
+            //Enumerate every char in string
+            foreach (char c in input)
+            {
+                switch (c)
+                {
+                    //End of line
+                    case ';':
+                        //If we are not in a subscope, add a new line
+                        if (!inSubScope())
+                        {
+                            lines.Add("");
+                        }
+                        break;
+                    //New scope, push it
+                    case '(':
+                    case '{':
+                        levels.Push(c);
+                        goto default;
+
+                    //Close scope
+                    case ')':
+                        if (!levels.Any())
+                            throw new CommandException("Syntax error: Unexpected token ')'", ErrorCode.INTERNAL_ERROR);
+
+                        if (levels.Pop() != '(')
+                        {
+                            throw new CommandException("Syntax error: Expected ')'", ErrorCode.INTERNAL_ERROR);
+                        }
+                        goto default;
+                    case '}':
+                        if (!levels.Any())
+                            throw new CommandException("Syntax error: Unexpected token '}'", ErrorCode.INTERNAL_ERROR);
+
+                        if (levels.Pop() != '{')
+                        {
+                            throw new CommandException("Syntax error: Expected '}'", ErrorCode.INTERNAL_ERROR);
+                        }
+
+                        //If we are no longer in a subscope. Start the next line
+                        if (!inSubScope())
+                        {
+                            goto case ';';
+                        }
+
+                        goto default;
+
+                    //Add the char to the current line
+                    default:
+                        lines[lines.Count - 1] += c;
+                        break;
+                }
+            }
+
+            //Return the new scope
+            return new Scope(parent)
+            {
+                Lines = new Lines(lines
+                    .Where(i => i.Length != 0)
+                    .Select(i => new Line(i)
+                ))
+            };
+            
         }
     }
 }

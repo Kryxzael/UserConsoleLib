@@ -1,31 +1,10 @@
-for n in (range 0 100) {
-	echo =========
-	echo (n) is prime?
-	if (n) == 1 {
-		echo false
-		continue
-	}
-
-	if (n) == 2 {
-		echo true
-		continue
-	}
+class Point {
+	public X = (arg x);
+	public Y = (arg y);
 	
-	if ((n) % 2) == 0 {
-		echo false
-		continue
+	fun ToString {
+		return (X) + (Y);
 	}
-
-	set boundary = (floor (sqrt (n)))
-
-	for i in (range 3 (boundary)) {
-		if ((n) % 2) == 0 {
-			if ((n) % ((i) - 3)) == 0) {
-				echo false
-				continue
-			}
-		}
-	}
-
-	echo true
 }
+
+var x = (new Point);
