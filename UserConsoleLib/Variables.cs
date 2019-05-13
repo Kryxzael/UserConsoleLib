@@ -106,7 +106,7 @@ namespace UserConsoleLib
         /// <returns></returns>
         public string Get(string name)
         {
-            if (IsDefined(name))
+            if (Vars.ContainsKey(name))
             {
                 return Vars[name];
             }

@@ -114,7 +114,7 @@ namespace UserConsoleLib
         }
 
         /// <summary>
-        /// Converts a parameter to an boolean
+        /// Converts a parameter to a boolean
         /// </summary>
         /// <param name="index">Index of parameter to convert</param>
         /// <returns></returns>
@@ -129,6 +129,22 @@ namespace UserConsoleLib
             }
 
             return v.Value;
+        }
+
+        /// <summary>
+        /// Converts a parameter to a code block scope
+        /// </summary>
+        /// <param name="index">Index of parameter to convert</param>
+        /// <param name="parent">The parent of the scope to create</param>
+        /// <returns></returns>
+        public Scope ToScope(int index, Scope parent)
+        {
+            if (!IsScope(index))
+            {
+                return null;
+            }
+
+            return Scope.FromLines(this[index].Substring(1, this[index].Length - 2), parent);
         }
 
         /// <summary>
@@ -160,6 +176,16 @@ namespace UserConsoleLib
         public bool IsBoolean(int index)
         {
             return ConConverter.ToBool(this[index]).HasValue;
+        }
+
+        /// <summary>
+        /// Checks whether an argument can be evaluated as a code block
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool IsScope(int index)
+        {
+            return this[index].StartsWith("{") && this[index].EndsWith("}");
         }
 
         /// <summary>

@@ -97,21 +97,13 @@ namespace UserConsoleLib
                 //Command is number => Arithmetic operation
                 if (ConConverter.ToDouble(line.Command) != null)
                 {
-                    return Command.GetByType<StandardLib.Math.Operation>().Execute(
-                        arguments: new string[] { line.Command }.Concat(line.Parameters), 
-                        target: target,
-                        scope: this
-                    );
+                    return ParseLine("op " + line, target);
                 }
 
                 //Command is known variable in scope, variable operation
                 else if (Variables.IsDefined(line.Command.TrimStart('$')))
                 {
-                    return Command.GetByType<StandardLib.Variables.Varop>().Execute(
-                        arguments: new string[] { line.Command }.Concat(line.Parameters),
-                        target: target,
-                        scope: this
-                    );
+                    return ParseLine("varop " + line, target);
                 }
 
                 //Invalid command
@@ -127,6 +119,18 @@ namespace UserConsoleLib
             else
             {
                 return cmd.Execute(line.Parameters, target, this);
+            }
+        }
+
+        /// <summary>
+        /// Runs every line in this scope sequentialy
+        /// </summary>
+        /// <param name="target"></param>
+        public void RunScope(IConsoleOutput target)
+        {
+            foreach (Line i in Lines)
+            {
+                ParseLine(i, target);
             }
         }
 
@@ -158,8 +162,9 @@ namespace UserConsoleLib
                         if (!inSubScope())
                         {
                             lines.Add("");
+                            break;
                         }
-                        break;
+                        goto default;
                     //New scope, push it
                     case '(':
                     case '{':
@@ -188,6 +193,7 @@ namespace UserConsoleLib
                         //If we are no longer in a subscope. Start the next line
                         if (!inSubScope())
                         {
+                            lines[lines.Count - 1] += c;
                             goto case ';';
                         }
 
@@ -205,9 +211,9 @@ namespace UserConsoleLib
             {
                 Lines = new Lines(lines
                     .Where(i => i.Length != 0)
-                    .Select(i => new Line(i)
-                ))
-            };
+                    .Select(i => new Line(i))
+                )
+            };   
             
         }
     }

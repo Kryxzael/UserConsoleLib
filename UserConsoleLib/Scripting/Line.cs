@@ -26,8 +26,11 @@ namespace UserConsoleLib.Scripting
         /// <param name="raw"></param>
         public Line(string raw)
         {
-            //Trim line of any prefixes or sufixes
-            raw = raw.Trim();
+            //Trim line of any prefixes or sufixes and newline characters
+            raw = raw
+                .Trim()
+                .Replace("\r", "")
+                .Replace("\n", "");
 
             if (raw.StartsWith("(") && raw.EndsWith(")"))
             {
@@ -165,6 +168,15 @@ namespace UserConsoleLib.Scripting
             }
 
             return output.ToString();
+        }
+
+        /// <summary>
+        /// Returns the line as a normalized string
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return Command + " " + string.Join(" ", Parameters.ToArray());
         }
 
     }
