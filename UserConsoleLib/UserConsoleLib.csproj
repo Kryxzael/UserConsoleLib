@@ -90,6 +90,7 @@
     <Compile Include="StandardLib\Math\Tan.cs" />
     <Compile Include="StandardLib\Randomness\Choose.cs" />
     <Compile Include="StandardLib\Randomness\Random.cs" />
+    <Compile Include="StandardLib\Structure\Load.cs" />
     <Compile Include="StandardLib\Variables\List.cs" />
     <Compile Include="StandardLib\Variables\Range.cs" />
     <Compile Include="StandardLib\Variables\String.cs" />
@@ -115,7 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ExtendedLib\Forms\" />
-    <Folder Include="StandardLib\Structure\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

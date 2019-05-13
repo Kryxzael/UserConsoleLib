@@ -129,6 +129,8 @@ namespace UserConsoleLib
             new StandardLib.Math.Sqrt(),
             new StandardLib.Brackets.BracketClose(),
             new StandardLib.Brackets.BracketOpen(),
+            new StandardLib.Structure.Load(),
+
             new StandardLib.Brackets.Brac(),
             new ExtendedLib.DateTime.Time(),
             new ExtendedLib.DateTime.Date(),
