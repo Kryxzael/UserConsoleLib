@@ -90,6 +90,7 @@
     <Compile Include="StandardLib\Math\Tan.cs" />
     <Compile Include="StandardLib\Randomness\Choose.cs" />
     <Compile Include="StandardLib\Randomness\Random.cs" />
+    <Compile Include="StandardLib\Structure\If.cs" />
     <Compile Include="StandardLib\Structure\Load.cs" />
     <Compile Include="StandardLib\Variables\List.cs" />
     <Compile Include="StandardLib\Variables\Range.cs" />

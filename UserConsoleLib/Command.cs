@@ -90,10 +90,10 @@ namespace UserConsoleLib
         /// Houses all registered commands
         /// </summary>
         internal static List<Command> AllCommandsInternal { get; } = new List<Command>();
-		
-		private static Command[] _systemCommands = new Command[]
-		{
-			new StandardLib.Echo(),
+
+        private static Command[] _systemCommands = new Command[]
+        {
+            new StandardLib.Echo(),
             new StandardLib.Clear(),
             new StandardLib.Help(),
             new StandardLib.Exit(),
@@ -130,6 +130,7 @@ namespace UserConsoleLib
             new StandardLib.Brackets.BracketClose(),
             new StandardLib.Brackets.BracketOpen(),
             new StandardLib.Structure.Load(),
+            new StandardLib.Structure.If(),
 
             new StandardLib.Brackets.Brac(),
             new ExtendedLib.DateTime.Time(),
